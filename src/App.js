@@ -2,6 +2,11 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Navbar from './Components/Layout/NavBar';
 import Dashboard from './Components/Dashboard/Dashboard'
+import ProjectDetails from './Components/Project/ProjectDetails';
+import SignIn from './Components/Auth/SignIn';
+import SignUp from './Components/Auth/SignUp';
+import CreateProject from './Components/Project/CreateProject';
+ 
 
 function App() {
   return (
@@ -9,7 +14,11 @@ function App() {
       <div className="App">
         <Navbar />        
         <Switch>
-          <Route path="/" component={Dashboard} />
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/project/:id" component={ProjectDetails} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <Route path="/create" component={CreateProject} />
         </Switch>
       </div>
     </BrowserRouter>
