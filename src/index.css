@@ -14,12 +14,16 @@ body {
 }
 
 form{
-  padding: 20px;
+  padding: 20px 40px;
   margin-top: 60px;
 }
 
 form button, form h5{
   margin: 20px 0;
+}
+
+form .formTitle {
+  margin-bottom: 30px;
 }
 
 form .send-form {
