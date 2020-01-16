@@ -39,7 +39,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]){
-  border-color: #ec407a;
+  border-color: #4e3af8d1;
   box-shadow: none;
 }
 
@@ -47,5 +47,9 @@ input[type=text]:not(.browser-default):focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label,
 input[type=email]:not(.browser-default):focus:not([readonly]) + label,
 input[type=password]:not(.browser-default):focus:not([readonly]) + label{
-  color: #ec407a !important;
+  color: #4e3af8d1 !important;
+}
+
+.input-field.error input, .input-field.error textarea{
+  border-bottom: solid 1px #f83a3a !important;
 }

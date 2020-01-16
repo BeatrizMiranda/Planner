@@ -3,14 +3,46 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import RootReducer from './Store/Reducers/RootReducer';
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+import { reduxFirestore, getFirestore } from 'redux-firestore'
+import { getFirebase } from 'react-redux-firebase'
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
+import { createFirestoreInstance } from 'redux-firestore'
+import FbConfig from './Config/FbConfig'
 
-const store = createStore(RootReducer, applyMiddleware(thunk));
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
+import 'firebase/storage'
+import 'firebase/functions'
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+// const store = createStore(RootReducer, 
+//     compose(
+//         applyMiddleware(thunk.withExtraArgument({getFirestore, getFirebase})),
+//         reduxFirestore(FbConfig), 
+//         reactReduxFirebase(FbConfig)
+//     )
+// );
+
+const store = createStore(
+    RootReducer,
+    compose(
+      applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
+      reduxFirestore(firebase, FbConfig)
+    )
+);
+
+const rrfProps = {
+    firebase,
+    config: FbConfig,
+    dispatch: store.dispatch,
+    createFirestoreInstance
+};
+
+ReactDOM.render(<Provider store={store}><ReactReduxFirebaseProvider {...rrfProps}><App /></ReactReduxFirebaseProvider></Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

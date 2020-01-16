@@ -7,9 +7,26 @@ class SignIn extends Component {
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
+        const empty = Object.keys(this.state).map((key, index) => {
+            return this.state[key] === ""
+        });
+        const unique = Array.from(new Set(empty))
+
+        if(!unique[0] && !unique[1]){
+            // create project
+            console.log(this.state);
+        } else {
+            // has empty inputs
+            Object.keys(this.state).map((key, index) => {
+                if(this.state[key] === ""){
+                    document.getElementById(key).parentElement.classList.add("error")
+                }
+                return true;
+            });
+        }
     }
     handleChange = (e) => {
+        document.getElementById(e.target.id).parentElement.classList.remove("error");
         this.setState({
             [e.target.id]: e.target.value
         })
