@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SignInLinks from './SignednInLinks';
 import SignedOutLinks from './SignedOutLinks';
+import { connect } from 'react-redux';
 
 
 const Navbar = () => {
@@ -15,4 +16,12 @@ const Navbar = () => {
         </nav>
     )
 }
-export default Navbar
+
+const mapStateToProps = (state) => {
+    console.log(state)
+    console.log(state.firebase.auth.isEmpty)
+    return {
+    }
+}
+
+export default connect(mapStateToProps)(Navbar)
