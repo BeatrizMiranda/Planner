@@ -12,3 +12,15 @@ export const signIn = (credentials) => {
         });
     }
 }
+
+export const signOut = () => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase();
+        
+        firebase.auth().signOut().then(function() {
+            dispatch({type: "SIGNOUT_SUCCESS"});
+        }).catch(function(error) {
+            dispatch({type: "SIGNOUT_ERROR"});
+        });
+    }
+}
