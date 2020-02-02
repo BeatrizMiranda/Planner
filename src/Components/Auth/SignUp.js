@@ -19,7 +19,6 @@ class SignUp extends Component {
 
         if(!unique[0] && !unique[1]){
             // create project
-            console.log(this.state);
             this.props.signUp(this.state);
         } else {
             // has empty inputs
