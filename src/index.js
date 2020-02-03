@@ -5,12 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware, compose } from 'redux'
 import RootReducer from './Store/Reducers/RootReducer';
-import { Provider, useSelector } from 'react-redux'
 import thunk from 'redux-thunk'
-import { reduxFirestore, getFirestore } from 'redux-firestore'
-import { getFirebase } from 'react-redux-firebase'
-import { ReactReduxFirebaseProvider, isLoaded } from 'react-redux-firebase'
-import { createFirestoreInstance } from 'redux-firestore'
+import { Provider, useSelector } from 'react-redux'
+import { reduxFirestore, getFirestore, createFirestoreInstance } from 'redux-firestore'
+import { ReactReduxFirebaseProvider, isLoaded, getFirebase } from 'react-redux-firebase'
 import FbConfig from './Config/FbConfig'
 
 import firebase from 'firebase/app'
@@ -18,14 +16,6 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/functions'
-
-// const store = createStore(RootReducer, 
-//     compose(
-//         applyMiddleware(thunk.withExtraArgument({getFirestore, getFirebase})),
-//         reduxFirestore(FbConfig), 
-//         reactReduxFirebase(FbConfig)
-//     )
-// );
 
 const store = createStore(
     RootReducer,
@@ -35,9 +25,14 @@ const store = createStore(
     )
 );
 
+const rrfConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: true
+};
+
 const rrfProps = {
     firebase,
-    config: FbConfig,
+    config: rrfConfig,
     dispatch: store.dispatch,
     createFirestoreInstance
 };
@@ -49,9 +44,15 @@ function AuthIsLoaded({ children }) {
       return children
 }
 
-ReactDOM.render(<Provider store={store}><ReactReduxFirebaseProvider {...rrfProps}>
-   <AuthIsLoaded><App /> </AuthIsLoaded></ReactReduxFirebaseProvider>
-</Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <AuthIsLoaded>
+        <App />
+      </AuthIsLoaded>
+    </ReactReduxFirebaseProvider>
+  </Provider>
+, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -2,6 +2,7 @@ export const createProject = (project) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         // make async call to firebase
         const firestore = getFirestore();
+        const profile = 
         firestore.collection('Project').add({
             ...project, 
             authorFirstName: 'Bia',
@@ -15,3 +16,4 @@ export const createProject = (project) => {
         })
     }
 }
+
