@@ -19,6 +19,7 @@ class CreateProject extends Component {
         if(!unique[0] && !unique[1]){
             // create project
             this.props.createProject(this.state);
+            this.props.history.push('/')
         } else {
             // has empty inputs
             Object.keys(this.state).map((key, index) => {
